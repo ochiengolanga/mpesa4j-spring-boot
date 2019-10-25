@@ -42,3 +42,4 @@ hs_err_pid*
 /.idea/
 /draft_readme.txt
 /TODOS.txt
+/libs/mpesa4j-spring-boot-autoconfigure/build/
