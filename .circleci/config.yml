@@ -14,10 +14,10 @@ jobs: # a collection of steps
           key: v1-gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
       - restore_cache:
           key: v1-gradle-cache-{{ checksum "build.gradle" }}
-      - run:
-          name: Run mpesa4j-spring-boot tests
-          command: |
-            ./gradlew -x test
+#      - run:
+#          name: Run mpesa4j-spring-boot tests
+#          command: |
+#            ./gradlew -x test
       - save_cache:
           paths:
             - ~/.gradle/wrapper
