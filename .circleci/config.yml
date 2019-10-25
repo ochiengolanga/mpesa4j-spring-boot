@@ -52,6 +52,9 @@ jobs: # a collection of steps
           destination: libs
 workflows:
   version: 2
-  tagged-build-and-test:
+  untagged-build:
+    jobs:
+      - build
+  tagged-build:
     jobs:
       - build: *only-deploy-tags
