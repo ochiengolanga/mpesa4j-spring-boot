@@ -1,7 +1,6 @@
 version: 2 # use CircleCI 2.0
 jobs: # a collection of steps
   build:
-    working_directory: /tmp
     environment:
       # Configure the JVM and Gradle to avoid OOM errors
       _JAVA_OPTIONS: "-Xmx3g"
@@ -29,9 +28,9 @@ jobs: # a collection of steps
           key: v1-gradle-cache-{{ checksum "build.gradle" }}
       - store_test_results:
           # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
-          path: /tmp/build/test-results/test
+          path: build/test-results/test
       - store_artifacts: # Upload test results for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
-          path: /tmp/build/test-results/test
+          path: build/test-results/test
           when: always
       - run:
           name: Assemble JARs
@@ -42,7 +41,7 @@ jobs: # a collection of steps
 #          command: |
 #            ./gradlew bintrayUpload
       - store_artifacts:
-          path: /tmp/build/libs
+          path: build/libs
 workflows:
   version: 2
   workflow:
