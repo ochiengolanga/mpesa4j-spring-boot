@@ -1,6 +1,7 @@
 version: 2 # use CircleCI 2.0
 jobs: # a collection of steps
   build:
+    working_directory: ~/repo
     environment:
       # Configure the JVM and Gradle to avoid OOM errors
       _JAVA_OPTIONS: "-Xmx3g"
@@ -15,9 +16,9 @@ jobs: # a collection of steps
       - restore_cache:
           key: v1-gradle-cache-{{ checksum "build.gradle" }}
       - run:
-          name: Run mpesa4j-springboot-autoconfigure tests
+          name: Run mpesa4j-spring-boot tests
           command: |
-            ./gradlew -x mpesa4j-spring-boot-starter:test -x mpesa4j-spring-boot-sample:test test
+            ./gradlew -x test
       - save_cache:
           paths:
             - ~/.gradle/wrapper
@@ -35,7 +36,7 @@ jobs: # a collection of steps
       - run:
           name: Assemble JARs
           command: |
-            ./gradlew -x mpesa4j-spring-boot-starter:assemble -x mpesa4j-spring-boot-sample:assemble assemble
+            ./gradlew assemble
 #      - run:
 #          name: Upload JARs to BinTray
 #          command: |
@@ -44,6 +45,11 @@ jobs: # a collection of steps
           path: build/libs
 workflows:
   version: 2
-  workflow:
+  tagged-build-and-test:
     jobs:
-      - build
+      - build:
+          filters:
+            branches:
+              only: master
+          tags:
+            only: /^((([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)$/
