@@ -35,7 +35,7 @@ jobs: # a collection of steps
       - run:
           name: Assemble JARs
           command: |
-            ./gradlew -x mpesa4j-spring-boot-starter:assemble -x mpesa4j-spring-boot-sample:assemble assemble
+            ./gradlew mpesa4j-spring-boot-autoconfigure:assemble
 #      - run:
 #          name: Upload JARs to BinTray
 #          command: |
