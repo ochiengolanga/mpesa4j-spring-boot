@@ -16,8 +16,8 @@ Add this dependency to your project's POM:
 
 ```xml
 <dependency>
-  <groupId>com.github.ochiengolanga</groupId>
-  <artifactId>mpesa4j</artifactId>
+  <groupId>com.github.ochiengolanga.mpesa4j</groupId>
+  <artifactId>mpesa4j-spring-boot-starter</artifactId>
   <version>0.0.5</version>
 </dependency>
 ```
@@ -27,7 +27,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.github.ochiengolanga:mpesa4j:0.0.5"
+compile "com.github.ochiengolanga.mpesa4j:mpesa4j-spring-boot-starter:0.0.5"
 ```
 
 ## How to Build and Contribute ##

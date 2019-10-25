@@ -1,6 +1,7 @@
 version: 2 # use CircleCI 2.0
 jobs: # a collection of steps
   build:
+    working_directory: /tmp
     environment:
       # Configure the JVM and Gradle to avoid OOM errors
       _JAVA_OPTIONS: "-Xmx3g"
@@ -15,9 +16,9 @@ jobs: # a collection of steps
       - restore_cache:
           key: v1-gradle-cache-{{ checksum "build.gradle" }}
       - run:
-          name: Run mpesa4j tests
+          name: Run mpesa4j-springboot-autoconfigure tests
           command: |
-            ./gradlew -x mpesa4j-spring-boot-sample:test test
+            ./gradlew -x mpesa4j-spring-boot-starter:test -x mpesa4j-spring-boot-sample:test test
       - save_cache:
           paths:
             - ~/.gradle/wrapper
@@ -28,16 +29,20 @@ jobs: # a collection of steps
           key: v1-gradle-cache-{{ checksum "build.gradle" }}
       - store_test_results:
           # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
-          path: build/test-results/test
+          path: /tmp/build/test-results/test
       - store_artifacts: # Upload test results for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
-          path: build/test-results/test
+          path: /tmp/build/test-results/test
           when: always
       - run:
           name: Assemble JARs
           command: |
-            ./gradlew -x mpesa4j:assemble -x mpesa4j-spring-boot-autoconfigure:assemble -x mpesa4j-sample:assemble -x mpesa4j-spring-boot-sample:assemble assemble mpesa4j-spring-boot-starter:bintrayUpload
+            ./gradlew -x mpesa4j-spring-boot-starter:assemble -x mpesa4j-spring-boot-sample:assemble assemble
+#      - run:
+#          name: Upload JARs to BinTray
+#          command: |
+#            ./gradlew bintrayUpload
       - store_artifacts:
-          path: build/libs
+          path: /tmp/build/libs
 workflows:
   version: 2
   workflow:

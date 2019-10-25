@@ -23,7 +23,7 @@ configurations {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    implementation group: 'com.github.ochiengolanga', name: 'mpesa4j-spring-boot-starter', version: mpesa4jVersion
+    //implementation group: 'com.github.ochiengolanga', name: 'mpesa4j-spring-boot-starter', version: mpesa4jVersion
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
